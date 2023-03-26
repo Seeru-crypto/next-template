@@ -1,19 +1,26 @@
 // components/NavLink.tsx
-import React from "react";
+import React, {useEffect} from "react";
 import Link from "next/link";
 import styled from "styled-components";
+import {useRouter} from "next/router";
 
-const StyledLink = styled.a`
-  color: ${({ theme }) => theme.text};
-  text-decoration: none;
-  margin: 0 0.5rem;
-  transition: color 0.3s;
-  border: 1px solid ${({ theme }) => theme.secondaryColor};
-  padding: ${({ theme }) => theme.size.$100};
-  border-radius: ${({ theme }) => theme.size.$100};
+const StyledLink = styled.div`
+  .passive {
+    color: ${({theme}) => theme.text};
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color 0.3s;
+    border: 1px solid ${({theme}) => theme.secondaryColor};
+    padding: ${({theme}) => theme.size.$100};
+    border-radius: ${({theme}) => theme.size.$100};
 
-  &:hover {
-    color: ${({ theme }) => theme.secondaryColor};
+    &:hover {
+      color: ${({theme}) => theme.secondaryColor};
+    }
+  }
+
+  .active {
+    color: ${({theme}) => theme.secondaryColor};
   }
 `;
 
@@ -23,10 +30,30 @@ interface NavLinkProps {
 }
 
 const NavLink: React.FC<NavLinkProps> = ({ href, children }) => {
+    const router = useRouter();
+    const currentRoute = router.pathname;
+    const [isActive, setIsActive] = React.useState(false);
+
+    useEffect(() => {
+        if (currentRoute == href) {
+            setIsActive(true );
+        } else {
+            setIsActive(false);
+        }
+        console.log(currentRoute, href);
+
+    }, [currentRoute, href]);
+
+
     return (
-        <Link href={href} style={{ textDecoration: 'none' }} passHref>
-            <StyledLink>{children}</StyledLink>
-        </Link>
+        <StyledLink>
+            <Link href={href} className={isActive
+                ? "active"
+                : "passive"}
+                  style={{textDecoration: 'none'}} passHref>
+                {children}
+            </Link>
+        </StyledLink>
     );
 };
 

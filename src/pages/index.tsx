@@ -1,6 +1,7 @@
 import {useState} from "react";
 import PrivateLanding from "../views/PrivateLanding";
 import PublicLanding from "../views/PublicLanding";
+import Button from "../components/Button";
 
 
 interface HomeProps {
@@ -14,7 +15,10 @@ export default function Home({toggleTheme} : HomeProps) : JSX.Element {
         return <PrivateLanding/>
     }
     else {
-        return <PublicLanding/>
+        return <>
+            <PublicLanding/>
+            <Button variant={"primary" }>tere</Button>
+            </>
     }
 }
 
