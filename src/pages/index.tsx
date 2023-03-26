@@ -1,16 +1,21 @@
-import styles from '@/styles/Home.module.css'
-import StyledButton from "../components/StyledButton";
-import {Head} from "next/document";
+import {useState} from "react";
+import PrivateLanding from "../views/PrivateLanding";
+import PublicLanding from "../views/PublicLanding";
 
-export default function Home({toggleTheme}) : JSX.Element {
-  return (
-    <>
-      <main className={styles.main}>
-        <div className={styles.description}>
-          Hi
-            <StyledButton onClick={toggleTheme}>Toggle theme</StyledButton>
-        </div>
-      </main>
-    </>
-  )
+
+interface HomeProps {
+    toggleTheme: () => void;
 }
+
+export default function Home({toggleTheme} : HomeProps) : JSX.Element {
+    const [auth, setAuth] = useState(false);
+
+    if (auth) {
+        return <PrivateLanding/>
+    }
+    else {
+        return <PublicLanding/>
+    }
+}
+
+

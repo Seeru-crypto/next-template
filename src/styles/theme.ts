@@ -1,3 +1,5 @@
+import { DefaultTheme } from 'styled-components';
+
 const breakpoints = {
     xs: "320px",
     sm: "480px",
@@ -13,6 +15,19 @@ const red = {
     $600: '#DC2626',
     $700: '#B91C1C',
 };
+
+const size = {
+    $100: '8px',
+    $200: '12px',
+    $300: '16px',
+    $400: '24px',
+    $500: '32px',
+    $600: '48px',
+    $700: '64px',
+    $800: '96px',
+    $900: '128px',
+};
+
 
 const gray = {
     $50: '#fffffe',
@@ -30,17 +45,25 @@ const gray = {
 
 export const baseTheme = {
     breakpoints,
+    size,
+    red,
+    gray,
 };
 
-export const dayTheme = {
+export const DayTheme = {
     ...baseTheme,
     background: gray.$50,
     text: "#333333",
+    primaryColor: gray.$700,
+    secondaryColor: red.$600,
 };
 
-export const nightTheme = {
+export const NightTheme = {
     ...baseTheme,
     background: gray.$50,
     text: "#ffffff",
+    primaryColor: gray.$700,
+    secondaryColor: red.$600,
 };
 
+export type NextTheme = typeof baseTheme & (typeof DayTheme | typeof NightTheme) & DefaultTheme;
