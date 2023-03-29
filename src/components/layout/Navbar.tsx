@@ -22,4 +22,25 @@ const NavbarStyle = styled.nav`
   background-color: transparent;
   gap: 1rem;
   padding: 1rem;
+
+  @media (min-width: ${({theme}) => theme.breakpoints.xs}) {
+    background-color: {(theme) => theme.primaryColor}
+  }
+
+  @media (min-width: ${({theme}) => theme.breakpoints.sm}) {
+    background-color: {(theme) => theme.secondaryColor}
+  }
+
 `
+
+
+const Sizes = styled(NavbarStyle)`
+
+  @media (min-width: ${({theme}) => theme.breakpoints.xs}) {
+    background-color: {(theme) => theme.primaryColor}
+  }
+  
+  @media (min-width: ${({theme}) => theme.breakpoints.sm}) {
+    background-color: {(theme) => theme.secondaryColor}
+  }
+  `

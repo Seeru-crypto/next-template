@@ -28,7 +28,6 @@ const size = {
     $900: '128px',
 };
 
-
 const gray = {
     $50: '#fffffe',
     $100: '#f1f5f9',

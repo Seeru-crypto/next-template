@@ -12,7 +12,7 @@ const ButtonStyle = styled.button<{ variant: 'primary' | 'secondary' }>`
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
 
-  // primary
+  // primary style
   ${({variant}) =>
           variant == "primary" && css`
             background-color: #007bff;
@@ -21,8 +21,8 @@ const ButtonStyle = styled.button<{ variant: 'primary' | 'secondary' }>`
             &:hover {
               background-color: #0069d9;
             }
-          `} 
-          // secondary
+          `}
+  // secondary style
   ${({variant}) =>
           variant === 'secondary' && css`
             background-color: #6c757d;

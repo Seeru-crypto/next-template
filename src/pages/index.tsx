@@ -17,7 +17,6 @@ export default function Home({toggleTheme} : HomeProps) : JSX.Element {
     else {
         return <>
             <PublicLanding/>
-            <Button variant={"primary" }>tere</Button>
             </>
     }
 }

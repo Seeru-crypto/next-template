@@ -12,5 +12,8 @@ const PublicLanding = (): JSX.Element => {
 export default PublicLanding;
 
 const PublicLandingStyle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid ${({ theme }) => theme.text};
   `
