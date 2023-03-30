@@ -15,7 +15,7 @@ testing with JEST - https://nextjs.org/docs/testing#jest-and-react-testing-libra
 
 https://nextjs.org/docs/api-reference/next.config.js/rewrites
 
-
+https://stackoverflow.com/questions/61024295/serve-top-level-domain-as-static-html-page-in-next-js
 
 ```HTML
 <!DOCTYPE html>
