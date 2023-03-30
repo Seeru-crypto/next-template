@@ -39,8 +39,9 @@ const ButtonStyle = styled.button<{ variant: 'primary' | 'secondary' }>`
 interface ButtonProps {
     variant: 'primary' | 'secondary';
     children: React.ReactNode;
+    onClick: () => void;
 }
 
-const Button = ({variant, children}: ButtonProps) => <ButtonStyle variant={variant}>{children}</ButtonStyle>
+const Button = ({variant, children, onClick}: ButtonProps) => <ButtonStyle onClick={onClick} variant={variant}>{children}</ButtonStyle>
 
 export default Button;

@@ -30,7 +30,7 @@ export default NotFound;
 
 const NotFoundStyle = styled.div`
   text-align: center;
-
+  
   .homeButton {
     color: #4979ff;
     text-decoration: underline;

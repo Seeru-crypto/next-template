@@ -40,8 +40,6 @@ const NavLink: React.FC<NavLinkProps> = ({ href, children }) => {
         } else {
             setIsActive(false);
         }
-        console.log(currentRoute, href);
-
     }, [currentRoute, href]);
 
 

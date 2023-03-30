@@ -16,4 +16,5 @@ const PublicLandingStyle = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid ${({ theme }) => theme.text};
+  padding: 2rem;
   `
