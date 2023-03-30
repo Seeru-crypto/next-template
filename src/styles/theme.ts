@@ -28,6 +28,20 @@ const size = {
     $900: '128px',
 };
 
+
+const cyan = {
+    $50: '#ecfeff',
+    $100: '#cffafe',
+    $200: '#a5f3fc',
+    $300: '#67e8f9',
+    $400: '#22d3ee',
+    $500: '#06b6d4',
+    $600: '#0891b2',
+    $700: '#0e7490',
+    $800: '#155e75',
+    $900: '#164e63'
+}
+
 const gray = {
     $50: '#fffffe',
     $100: '#f1f5f9',
@@ -47,21 +61,23 @@ export const baseTheme = {
     size,
     red,
     gray,
+    cyan
 };
 
 export const DayTheme = {
     ...baseTheme,
     background: gray.$50,
-    text: "#333333",
-    primaryColor: gray.$700,
-    secondaryColor: red.$600,
+    primaryColor: cyan.$600,
+    primaryText: gray.$50,
+    secondaryText: gray.$50,
+    secondaryColor: gray.$400,
 };
 
 export const NightTheme = {
     ...baseTheme,
     background: gray.$50,
     text: "#ffffff",
-    primaryColor: gray.$700,
+    primaryColor: cyan.$300,
     secondaryColor: red.$600,
 };
 

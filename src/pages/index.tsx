@@ -11,7 +11,6 @@ export default function Home({toggleTheme}: HomeProps): JSX.Element {
     return (
         <HomeStyle>
             <PublicLanding/>
-            <Button variant={'primary'} onClick={toggleTheme}>Change theme</Button>
         </HomeStyle>
     )
 }
@@ -22,7 +21,7 @@ const HomeStyle = styled.div`
   align-items: center;
   justify-content: center;
   padding: 2rem;
-  gap: 2rem
+  gap: 2rem;
 `
 
 

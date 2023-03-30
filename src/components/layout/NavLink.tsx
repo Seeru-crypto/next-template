@@ -6,7 +6,7 @@ import {useRouter} from "next/router";
 
 const StyledLink = styled.div`
   .passive {
-    color: ${({theme}) => theme.text};
+    color: ${({theme}) => theme.primaryColor};
     text-decoration: none;
     margin: 0 0.5rem;
     transition: color 0.3s;

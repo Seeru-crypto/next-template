@@ -6,6 +6,7 @@ import Layout from "../components/layout/Layout";
 
 export default function App({Component, pageProps}: AppProps) {
     const [isNightTheme, setIsNightTheme] = useState(false);
+
     const toggleTheme = () => {
         setIsNightTheme((prevTheme) => !prevTheme);
     };

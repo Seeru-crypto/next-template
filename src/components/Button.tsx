@@ -6,6 +6,7 @@ const ButtonStyle = styled.button<{ variant: 'primary' | 'secondary' }>`
   padding: 0.5rem 1rem;
   font-size: 1rem;
   font-weight: 600;
+  border-radius: 0.5rem;
   text-align: center;
   text-decoration: none;
   border: none;
@@ -15,22 +16,25 @@ const ButtonStyle = styled.button<{ variant: 'primary' | 'secondary' }>`
   // primary style
   ${({variant}) =>
           variant == "primary" && css`
-            background-color: #007bff;
-            color: #fff;
+            background-color: ${({ theme }) => theme.primaryColor};
+            color: ${({ theme }) => theme.primaryText};
+            border: 1px solid ${({ theme }) => theme.primaryColor};
 
             &:hover {
-              background-color: #0069d9;
+              background-color: ${({ theme }) => theme.primaryText};
+              color: ${({ theme }) => theme.primaryColor};
             }
           `}
   // secondary style
   ${({variant}) =>
           variant === 'secondary' && css`
-            background-color: #6c757d;
-            color: #fff;
+            background-color: ${({ theme }) => theme.secondaryColor};
+            color: ${({ theme }) => theme.secondaryText};
+            border: 1px solid ${({ theme }) => theme.secondaryColor};
 
             &:hover {
-              background-color: #5a6268;
-            }
+              background-color: ${({ theme }) => theme.secondaryText};
+              color: ${({ theme }) => theme.secondaryColor};            }
           `
   }
 `;
