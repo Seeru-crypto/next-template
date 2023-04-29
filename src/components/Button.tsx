@@ -39,7 +39,6 @@ const ButtonStyle = styled.button<{ variant: 'primary' | 'secondary' }>`
   }
 `;
 
-
 interface ButtonProps {
     variant: 'primary' | 'secondary';
     children: React.ReactNode;

@@ -1,32 +1,32 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import Button from "../components/Button";
 import {signIn, signOut, useSession} from "next-auth/react";
 
 const PublicLanding = (): JSX.Element => {
-    const { data: session } = useSession()
+    const {data: session} = useSession()
+    const [userName, setUserName] = useState<String | null>(null)
 
     useEffect(() => {
         console.log(session)
+        if (session?.user?.name != undefined) setUserName(session.user.name)
     }, [session])
 
-    const loggedIn: JSX.Element = (<div>
-        <h1>Hello {session?.user?.name}</h1>
-        <button onClick={() => signOut()}>Sign out</button>
-    </div>)
-    const notLoggedin: JSX.Element = <div>
-        <h1>NUT</h1>
-        <button onClick={() => signIn()}>Sign in</button>
-    </div>
+    const LoginButton: JSX.Element = <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>
+    const SignoutButton: JSX.Element = <Button variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
 
     return (
         <PublicLandingStyle>
-            <h1>Public Landing</h1>
+            <div>
+                <h1>Public Landing</h1>
+                {
+                    userName && <p>Logged in as {session?.user?.name}</p>
+                }
+            </div>
             <div className="btnGrp">
-                <Button variant={'primary'} onClick={() => console.log("Login")}>Log in</Button>
+                {userName== null ? LoginButton : SignoutButton}
                 <Button variant={'secondary'} onClick={() => console.log("register")}>Register</Button>
             </div>
-            {session ? loggedIn : notLoggedin}
         </PublicLandingStyle>
     );
 };
@@ -39,7 +39,7 @@ const PublicLandingStyle = styled.div`
   flex-direction: column;
   gap: 4rem;
   align-items: center;
-  border: 1px solid ${({ theme }) => theme.text};
+  border: 1px solid ${({theme}) => theme.text};
   padding: 2rem;
   
   .btnGrp {
