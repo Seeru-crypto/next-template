@@ -1,6 +1,7 @@
 import PublicLanding from "../views/PublicLanding";
-import Button from "../components/Button";
 import styled from "styled-components";
+import {Provider} from "react-redux";
+import {store} from "@/store";
 
 interface HomeProps {
     toggleTheme: () => void;
@@ -9,9 +10,11 @@ interface HomeProps {
 export default function Home({toggleTheme}: HomeProps): JSX.Element {
 
     return (
-        <HomeStyle>
-            <PublicLanding/>
-        </HomeStyle>
+        <Provider store={store}>
+            <HomeStyle>
+                <PublicLanding/>
+            </HomeStyle>
+        </Provider>
     )
 }
 

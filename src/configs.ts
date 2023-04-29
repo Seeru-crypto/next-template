@@ -8,3 +8,6 @@ export const links = [
         text: "About"
     }
 ]
+
+export const ApiPath = "https://api.net.com/"
+export const ReportSlug = "users"
