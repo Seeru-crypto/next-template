@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import NavLink from "./NavLink";
-import {links} from "../../configs";
+import {links} from "@/configs";
 
 const Navbar = () => {
     return (
@@ -32,7 +32,6 @@ const NavbarStyle = styled.nav`
   }
 
 `
-
 
 const Sizes = styled(NavbarStyle)`
 
