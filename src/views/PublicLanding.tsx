@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import Button from "../components/Button";
 import {signIn, signOut, useSession} from "next-auth/react";
+import {useAppDispatch} from "@/store";
 
 const PublicLanding = (): JSX.Element => {
     const {data: session} = useSession()
     const [userName, setUserName] = useState<String | null>(null)
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         console.log(session)
@@ -14,6 +16,8 @@ const PublicLanding = (): JSX.Element => {
 
     const LoginButton: JSX.Element = <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>
     const SignoutButton: JSX.Element = <Button variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
+
+    const getReportsButton: JSX.Element = <Button variant={'secondary'} onClick={() => dispatch}>Get Reports</Button>
 
     return (
         <PublicLandingStyle>
