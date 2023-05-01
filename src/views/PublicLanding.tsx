@@ -1,41 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Button from "../components/Button";
-import {signIn, signOut, useSession} from "next-auth/react";
-import {useAppDispatch, useAppSelector} from "../redux/store";
-import {setAuthState} from "../redux/authSlice";
+import {signIn} from "next-auth/react";
+import {FindAllReports} from "@/requests";
 
 const PublicLanding = (): JSX.Element => {
-    const {data: session} = useSession()
-    const [userName, setUserName] = useState<String | null>(null)
-    const dispatch = useAppDispatch();
-    const authState: boolean = useAppSelector(state => state.auth.authState)
+    const [reports, setReports] = React.useState([])
 
-
-    useEffect(() => {
-        console.info(authState.toString())
-    }, [authState])
-
-    useEffect(() => {
-        console.log(session)
-        if (session?.user?.name != undefined) setUserName(session.user.name)
-    }, [session])
-
-    const LoginButton: JSX.Element = <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>
-    const SignoutButton: JSX.Element = <Button variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
+    const getReports = async () => {
+        console.log("HERE")
+        const {isLoading, error, data} = await FindAllReports()
+        if (isLoading) {
+            return <div>Loading reports...</div>;
+        }
+    }
 
     return (
         <PublicLandingStyle>
             <div>
-                <Button variant={"primary"} onClick={() => dispatch(setAuthState(!authState))}></Button>
                 <h1>Public Landing</h1>
-                {
-                    userName && <p>Logged in as {session?.user?.name}</p>
-                }
+                <Button variant={"primary"} onClick={() => getReports()}>Get reports!</Button>
+                <p>Nr of reports: {reports.length}</p>
             </div>
             <div className="btnGrp">
-                {userName== null ? LoginButton : SignoutButton}
-                <Button variant={'secondary'} onClick={() => console.log("register")}>Register</Button>
+                <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>
             </div>
         </PublicLandingStyle>
     );

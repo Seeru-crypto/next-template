@@ -1,18 +1,24 @@
 import PublicLanding from "../views/PublicLanding";
 import styled from "styled-components";
-import {setupAxiosInterceptors} from "../axiosInterceptor";
+import {useSession} from "next-auth/react";
+import PrivateLanding from "@/views/PrivateLanding";
 
 interface HomeProps {
     toggleTheme: () => void;
 }
 
 export default function Home({toggleTheme}: HomeProps): JSX.Element {
-    void setupAxiosInterceptors();
+    const {data: session} = useSession()
 
-    return (
-            <HomeStyle>
-                <PublicLanding/>
-            </HomeStyle>
+    if (session) return (
+        <HomeStyle>
+            <PrivateLanding/>
+        </HomeStyle>
+    )
+    else return (
+        <HomeStyle>
+            <PublicLanding/>
+        </HomeStyle>
     )
 }
 
