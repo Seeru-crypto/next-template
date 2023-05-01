@@ -1,7 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from 'axios';
-const minutesToMilliseconds = (minutes: number): number => minutes * 60 * 1000;
+import {MinutesToMilliseconds} from "./configs";
 
-const TIMEOUT = minutesToMilliseconds(1);
+const TIMEOUT = MinutesToMilliseconds(1);
 axios.defaults.timeout = TIMEOUT;
 axios.defaults.baseURL = process.env.REACT_APP_SPRING_API_PATH;
 

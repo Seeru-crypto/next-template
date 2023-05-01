@@ -5,22 +5,22 @@
 [github repo](https://github.com/Seeru-crypto/next-template)
 
 
-Dom loadeer - https://stackoverflow.com/questions/68118383/next-js-loading-screen-while-the-dom-is-rendeing
+Dom loadeer - 
 
 ANT design - https://ant.design/components/spin
-
-example of simple animations https://brittanychiang.com/
-
-testing with JEST - https://nextjs.org/docs/testing#jest-and-react-testing-library
-
-https://nextjs.org/docs/api-reference/next.config.js/rewrites
-
-https://stackoverflow.com/questions/61024295/serve-top-level-domain-as-static-html-page-in-next-js
-
 
 Todo:
 - [x] Add redux
 - [x] Add RTK query
 - [x] Add RTK query hooks
 - [x] Add working theme system, using Ant design
+- Add splash screen animation, while dom is rendering
+- Simplify public landing page, with Login as the CTA (uses SSG)
+- After login, navigate to user details page (ISG)
+    - user can update their details
+    - can see the total number of users
+- Add support for github auth
+- Add skeleton loaders for typical navigation
+- Add testCafe for e2e testing  
+- Add toast Notifications
 - 

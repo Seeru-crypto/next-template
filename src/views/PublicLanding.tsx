@@ -2,12 +2,19 @@ import React, {useEffect, useState} from 'react';
 import styled from "styled-components";
 import Button from "../components/Button";
 import {signIn, signOut, useSession} from "next-auth/react";
-import {useAppDispatch} from "@/store";
+import {useAppDispatch, useAppSelector} from "../redux/store";
+import {setAuthState} from "../redux/authSlice";
 
 const PublicLanding = (): JSX.Element => {
     const {data: session} = useSession()
     const [userName, setUserName] = useState<String | null>(null)
     const dispatch = useAppDispatch();
+    const authState: boolean = useAppSelector(state => state.auth.authState)
+
+
+    useEffect(() => {
+        console.info(authState.toString())
+    }, [authState])
 
     useEffect(() => {
         console.log(session)
@@ -17,11 +24,10 @@ const PublicLanding = (): JSX.Element => {
     const LoginButton: JSX.Element = <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>
     const SignoutButton: JSX.Element = <Button variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
 
-    const getReportsButton: JSX.Element = <Button variant={'secondary'} onClick={() => dispatch}>Get Reports</Button>
-
     return (
         <PublicLandingStyle>
             <div>
+                <Button variant={"primary"} onClick={() => dispatch(setAuthState(!authState))}></Button>
                 <h1>Public Landing</h1>
                 {
                     userName && <p>Logged in as {session?.user?.name}</p>
