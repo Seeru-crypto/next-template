@@ -23,4 +23,16 @@ Todo:
 - Add skeleton loaders for typical navigation
 - Add testCafe for e2e testing  
 - Add toast Notifications
-- 
+
+
+
+useState and a bit of prop drilling
+React context (i can pass useState without prop drilling)
+if data doesnt change much, because it passes EVERYTHING to EVERY WHERE
+because it will re-render everything when any part of data changes
+
+and reactQuery for data fetching
+
+Zustand for state management
+
+https://tkdodo.eu/blog/practical-react-query
