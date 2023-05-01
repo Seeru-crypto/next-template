@@ -10,4 +10,4 @@ export const links = [
 ]
 
 export const ApiPath = "https://api.net.com/"
-export const ReportSlug = "users"
+export const UsersSlug = "users"

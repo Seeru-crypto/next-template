@@ -1,20 +1,18 @@
 import PublicLanding from "../views/PublicLanding";
 import styled from "styled-components";
-import {Provider} from "react-redux";
-import {store} from "@/store";
+import {setupAxiosInterceptors} from "../axiosInterceptor";
 
 interface HomeProps {
     toggleTheme: () => void;
 }
 
 export default function Home({toggleTheme}: HomeProps): JSX.Element {
+    void setupAxiosInterceptors();
 
     return (
-        <Provider store={store}>
             <HomeStyle>
                 <PublicLanding/>
             </HomeStyle>
-        </Provider>
     )
 }
 
