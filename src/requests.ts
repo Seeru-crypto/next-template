@@ -1,16 +1,14 @@
 import {queryClient} from "@/pages/_app";
+import {ReportsSlug} from "@/configs";
 
 export async function FindAllReports() {
     console.log("findAllReports")
 
-    const todoId = 1
-    //return queryClient.fetchQuery(['todos', todoId], fetchReports)
-
     try {
         const {isLoading, error, data} = queryClient.fetchQuery({
-            queryKey: ['todos', todoId],
+            queryKey: [ReportsSlug],
             queryFn: async () => {
-                const response = await fetch('/api/reports')
+                const response = await fetch(`/api/${ReportsSlug}`)
                 if (!response.ok) {
                     console.error('Network response was not ok')
                 }

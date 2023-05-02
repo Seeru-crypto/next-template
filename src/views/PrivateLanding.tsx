@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import styled from "styled-components";
 import {signOut, useSession} from "next-auth/react";
 import Button from "@/components/Button";
-import {findAllReports} from "@/requests";
+import {FindAllReports} from "@/requests";
 
 const PrivateLanding = (): JSX.Element => {
     const {data: session} = useSession()
@@ -14,14 +14,19 @@ const PrivateLanding = (): JSX.Element => {
         );
     }
 
-    useEffect(() => {
-        console.log(session)
-
-    }, [])
+    const getReports = async () => {
+        console.log("HERE")
+        const {isLoading, error, data} = await FindAllReports()
+        console.log(data)
+        if (isLoading) {
+            return <div>Loading reports...</div>;
+        }
+    }
 
     return (
         <PrivateLandingStyle>
             <h1>Private Landing</h1>
+            <Button variant={"primary"} onClick={() => getReports()}>Get reports!</Button>
             <p>Nr of reports: {reports.length}</p>
             <p>Logged in as {session?.user?.name}</p>
             <SignoutButton />
