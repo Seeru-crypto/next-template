@@ -36,3 +36,5 @@ and reactQuery for data fetching
 Zustand for state management
 
 https://tkdodo.eu/blog/practical-react-query
+
+https://next-auth.js.org/configuration/providers/oauth

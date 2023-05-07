@@ -2,17 +2,11 @@ import React from 'react';
 import styled from "styled-components";
 import Button from "../components/Button";
 import {signIn} from "next-auth/react";
-import {FindAllReports} from "@/requests";
 
 const PublicLanding = (): JSX.Element => {
     const [reports, setReports] = React.useState([])
 
     const getReports = async () => {
-        console.log("HERE")
-        const {isLoading, error, data} = await FindAllReports()
-        if (isLoading) {
-            return <div>Loading reports...</div>;
-        }
     }
 
     return (
