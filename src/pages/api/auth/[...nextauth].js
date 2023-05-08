@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import KeycloakProvider from "next-auth/providers/keycloak";
-import {SessionContextValue, signOut} from "next-auth/react";
 
 export const authOptions = {
     providers: [
@@ -21,7 +20,6 @@ export const authOptions = {
             // Persist the OAuth access_token and or the user id to the token right after signin
             if (account) {
                 const newToken = {...token, accessToken :account.access_token}
-                console.log("access token ",account.access_token)
                 return newToken
             }
             return token
@@ -30,6 +28,7 @@ export const authOptions = {
             // Send properties to the client, like an access_token and user id from a provider.
             // eslint-disable-next-line no-param-reassign
             session.accessToken = token.accessToken
+
             // eslint-disable-next-line no-param-reassign
             session.user.id = token.id
             return session

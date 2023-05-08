@@ -4,17 +4,10 @@ import Button from "../components/Button";
 import {signIn} from "next-auth/react";
 
 const PublicLanding = (): JSX.Element => {
-    const [reports, setReports] = React.useState([])
-
-    const getReports = async () => {
-    }
-
     return (
         <PublicLandingStyle>
             <div>
                 <h1>Public Landing</h1>
-                <Button variant={"primary"} onClick={() => getReports()}>Get reports!</Button>
-                <p>Nr of reports: {reports.length}</p>
             </div>
             <div className="btnGrp">
                 <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>

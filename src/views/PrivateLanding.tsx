@@ -1,17 +1,37 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import {SessionContextValue, signOut, useSession} from "next-auth/react";
 import Button from "@/components/Button";
 import {GetRequest} from "@/controller/ApiServices";
-import {ReportsSlug, UsersSlug} from "@/configs";
+import {ReportsSlug} from "@/configs";
+import {AuthProps, useAppStore} from "@/zustand/store";
 
-export interface Props extends  SessionContextValue<boolean>{
+// define new interface for Session, which has a new string property accessToken, imbedded in existing data property
+export interface SessionProps extends SessionContextValue {
+    data: SessionContextValue['data'] & {
+        accessToken: string;
+    };
 }
 
 const PrivateLanding = (): JSX.Element => {
-    const {data: sessionData} = useSession()
+    const session: SessionProps = useSession() as SessionProps
     const [reports, setReports] = React.useState([])
-    const jwtToken = sessionData.accessToken as string
+    const isAuth = useAppStore((state) => state.auth.isAuthenticated)
+    const setAuth = useAppStore((state) => state.setAuth)
+
+    useEffect(() => {
+        if (session) {
+            const jwt = session.data.accessToken
+            const name = session.data.user as string
+
+            const auth: AuthProps = {
+                name,
+                isAuthenticated: true,
+                jwt,
+            }
+            setAuth(auth)
+        }
+    }, [session])
 
     const SignoutButton = () => {
         return (
@@ -20,14 +40,21 @@ const PrivateLanding = (): JSX.Element => {
     }
 
     const getReports = async () => {
-        const {isLoading, error, data} = await GetRequest(`/api/${ReportsSlug}`, jwtToken)
+        if (!session.data) return
+        const {isLoading, error, data} = await GetRequest({
+            url: `/api/${ReportsSlug}`, sessionData: session.data
+        })
         if (isLoading) {
             return <div>Loading reports...</div>;
         }
     }
 
     const getUsers = async () => {
-        const {isLoading, error, data} = await GetRequest(`/api/${UsersSlug}`, jwtToken)
+        if (!session.data) return
+        const {isLoading, error, data} = await GetRequest({
+            url: `/api/${ReportsSlug}`,
+            sessionData: session.data
+        })
         if (isLoading) {
             return <div>Loading reports...</div>;
         }
@@ -39,7 +66,7 @@ const PrivateLanding = (): JSX.Element => {
             <Button variant={"primary"} onClick={() => getReports()}>Get reports!</Button>
             <Button variant={"secondary"} onClick={() => getUsers()}>Get users!</Button>
             <p>Nr of reports: {reports.length}</p>
-            <p>Logged in as {sessionData?.user?.name}</p>
+            <p>Logged in as {session.data?.user?.name}</p>
             <SignoutButton/>
         </PrivateLandingStyle>
     );

@@ -1,14 +1,20 @@
 import styled from "styled-components";
 import NavLink from "./NavLink";
 import {links} from "@/configs";
+import {useSession} from "next-auth/react";
 
 const Navbar = () => {
-    return (
+    const {data} = useSession()
+
+    if (data) return (
         <NavbarStyle>
             {links.map((link) => (
                 <NavLink key={link.href} href={link.href}>{link.text}</NavLink>
             ))}
         </NavbarStyle>
+    )
+    else return (
+        <div/>
     )
 }
 
