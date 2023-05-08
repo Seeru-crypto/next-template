@@ -3,7 +3,7 @@ import styled from "styled-components";
 import {SessionContextValue, signOut, useSession} from "next-auth/react";
 import Button from "@/components/Button";
 import {GetRequest} from "@/controller/ApiServices";
-import {ReportsSlug} from "@/configs";
+import {ReportsSlug, UsersSlug} from "@/configs";
 
 export interface Props extends  SessionContextValue<boolean>{
 }
@@ -20,9 +20,14 @@ const PrivateLanding = (): JSX.Element => {
     }
 
     const getReports = async () => {
-        console.log("HERE")
         const {isLoading, error, data} = await GetRequest(`/api/${ReportsSlug}`, jwtToken)
-        console.log("resData ", data)
+        if (isLoading) {
+            return <div>Loading reports...</div>;
+        }
+    }
+
+    const getUsers = async () => {
+        const {isLoading, error, data} = await GetRequest(`/api/${UsersSlug}`, jwtToken)
         if (isLoading) {
             return <div>Loading reports...</div>;
         }
@@ -32,6 +37,7 @@ const PrivateLanding = (): JSX.Element => {
         <PrivateLandingStyle>
             <h1>Private Landing</h1>
             <Button variant={"primary"} onClick={() => getReports()}>Get reports!</Button>
+            <Button variant={"secondary"} onClick={() => getUsers()}>Get users!</Button>
             <p>Nr of reports: {reports.length}</p>
             <p>Logged in as {sessionData?.user?.name}</p>
             <SignoutButton/>

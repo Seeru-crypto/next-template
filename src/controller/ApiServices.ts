@@ -28,7 +28,7 @@ export async function GetRequest(url: string, jwt:string) {
         const {isLoading, error, data:responseData} = queryClient.fetchQuery({
             queryKey: [ReportsSlug],
             queryFn: async () => {
-                const response = await fetch(`/api/${ReportsSlug}`, {
+                const response = await fetch(url, {
                     headers: {
                         Authorization: `Bearer ${jwt}`
                     }
