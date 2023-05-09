@@ -4,12 +4,11 @@ import {DayTheme, NightTheme} from "../styles/theme";
 import {useEffect, useState} from "react";
 import Layout from "../components/layout/Layout";
 import {SessionProvider} from "next-auth/react"
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query'
 
 export const queryClient = new QueryClient()
 export default function App({Component, pageProps: {session, ...pageProps}}: AppProps) {
     const [isNightTheme, setIsNightTheme] = useState(false);
-
     const toggleTheme = () => {
         setIsNightTheme((prevTheme) => !prevTheme);
     };

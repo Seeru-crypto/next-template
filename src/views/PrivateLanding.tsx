@@ -3,8 +3,9 @@ import styled from "styled-components";
 import {SessionContextValue, signOut, useSession} from "next-auth/react";
 import Button from "@/components/Button";
 import {GetRequest} from "@/controller/ApiServices";
-import {ReportsSlug} from "@/configs";
-import {AuthProps, useAppStore} from "@/zustand/store";
+import {ReportsSlug, UsersSlug} from "@/configs";
+import {AuthProps, useAppStore, useToastStore} from "@/zustand/store";
+import {AxiosResponse} from "axios";
 
 // define new interface for Session, which has a new string property accessToken, imbedded in existing data property
 export interface SessionProps extends SessionContextValue {
@@ -16,7 +17,8 @@ export interface SessionProps extends SessionContextValue {
 const PrivateLanding = (): JSX.Element => {
     const session: SessionProps = useSession() as SessionProps
     const [reports, setReports] = React.useState([])
-    const isAuth = useAppStore((state) => state.auth.isAuthenticated)
+    const [users, setUsers] = React.useState([])
+    const toastVariant = useToastStore((state) => state.variant)
     const setAuth = useAppStore((state) => state.setAuth)
 
     useEffect(() => {
@@ -33,6 +35,11 @@ const PrivateLanding = (): JSX.Element => {
         }
     }, [session])
 
+
+    useEffect(() => {
+        console.log("toastVariant ", toastVariant)
+    }, [toastVariant])
+
     const SignoutButton = () => {
         return (
             <Button variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
@@ -41,23 +48,22 @@ const PrivateLanding = (): JSX.Element => {
 
     const getReports = async () => {
         if (!session.data) return
-        const {isLoading, error, data} = await GetRequest({
+        const res2 = await GetRequest({
             url: `/api/${ReportsSlug}`, sessionData: session.data
-        })
-        if (isLoading) {
-            return <div>Loading reports...</div>;
-        }
+        }) as any
+        setReports(res2.content)
     }
 
     const getUsers = async () => {
         if (!session.data) return
-        const {isLoading, error, data} = await GetRequest({
-            url: `/api/${ReportsSlug}`,
+        await GetRequest({
+            url: `/api/${UsersSlug}`,
             sessionData: session.data
+        }).then((res: AxiosResponse) => {
+            setUsers(res.content)
+        }).catch((err) => {
+            console.log(err)
         })
-        if (isLoading) {
-            return <div>Loading reports...</div>;
-        }
     }
 
     return (
@@ -66,6 +72,7 @@ const PrivateLanding = (): JSX.Element => {
             <Button variant={"primary"} onClick={() => getReports()}>Get reports!</Button>
             <Button variant={"secondary"} onClick={() => getUsers()}>Get users!</Button>
             <p>Nr of reports: {reports.length}</p>
+            <p>Nr of users: {users.length}</p>
             <p>Logged in as {session.data?.user?.name}</p>
             <SignoutButton/>
         </PrivateLandingStyle>
@@ -75,10 +82,10 @@ const PrivateLanding = (): JSX.Element => {
 export default PrivateLanding;
 
 const PrivateLandingStyle = styled.div`
-      display: flex;
+  display: flex;
+  gap: 1rem;
   justify-content: center;
   flex-direction: column;
-  gap: 4rem;
   align-items: center;
   border: 1px solid ${({theme}) => theme.text};
   padding: 2rem;

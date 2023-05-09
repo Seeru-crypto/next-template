@@ -17,7 +17,6 @@ const Navbar = () => {
         <div/>
     )
 }
-
 export default Navbar
 
 const NavbarStyle = styled.nav`

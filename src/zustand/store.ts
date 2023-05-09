@@ -30,26 +30,38 @@ type ToastVariant = 'success' | 'error' | 'warning' | 'info'
 
 interface ToastProps {
     variant: ToastVariant
-    message: string
-}
-
-const defaultToast: ToastProps = {
-    variant: 'info',
-    message: '',
+    message: string,
+    setToastMessage: (variant: ToastVariant, message: string) => void,
+    resetToast: () => void
 }
 
 interface AppState {
     auth: AuthProps,
     setAuth: (auth: AuthProps) => void
-    toast: ToastProps,
+    // toast: ToastProps,
     setToast: (toast: ToastProps) => void
 }
 
 export const useAppStore = create<AppState>((set) => ({
     auth: defaultAuth,
     setAuth: (auth: AuthProps) => set(() => ({auth: auth})),
-    toast: defaultToast,
+    // toast: defaultToast,
     setToast: (toast: ToastProps) => set(() => ({toast: toast}))
+}))
+
+export const useToastStore = create<ToastProps>((set) => ({
+    variant: 'info',
+    message: '',
+    setToastMessage: (variant: ToastVariant, message: string) => set(() => ({
+        message: message,
+        variant: variant,
+    })),
+    resetToast: () => set(() => ({
+        toast: {
+            variant: 'info',
+            message: '',
+        }
+    }))
 }))
 
 
