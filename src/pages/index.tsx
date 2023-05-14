@@ -1,20 +1,37 @@
 import PublicLanding from "../views/PublicLanding";
 import styled from "styled-components";
-import {Provider} from "react-redux";
-import {store} from "@/store";
+import {useSession} from "next-auth/react";
+import PrivateLanding from "@/views/PrivateLanding";
+import {useEffect} from "react";
+import {HealthCheck} from "@/controller/HealthCheck";
+import {message} from 'antd';
 
 interface HomeProps {
     toggleTheme: () => void;
 }
 
 export default function Home({toggleTheme}: HomeProps): JSX.Element {
+    const {data: session} = useSession()
+    const [messageApi, contextHolder] = message.useMessage();
+    // useToast(messageApi)
 
-    return (
-        <Provider store={store}>
-            <HomeStyle>
-                <PublicLanding/>
-            </HomeStyle>
-        </Provider>
+    useEffect(() => {
+        // HealthCheck().catch(() => {
+        //     console.log("caught")
+        // })
+    }, [])
+
+    if (session) return (
+        <HomeStyle>
+            {contextHolder}
+            <PrivateLanding/>
+        </HomeStyle>
+    )
+    else return (
+        <HomeStyle>
+            {contextHolder}
+            <PublicLanding/>
+        </HomeStyle>
     )
 }
 

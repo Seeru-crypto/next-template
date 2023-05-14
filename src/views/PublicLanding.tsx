@@ -1,31 +1,16 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styled from "styled-components";
 import Button from "../components/Button";
-import {signIn, signOut, useSession} from "next-auth/react";
+import {signIn} from "next-auth/react";
 
 const PublicLanding = (): JSX.Element => {
-    const {data: session} = useSession()
-    const [userName, setUserName] = useState<String | null>(null)
-
-    useEffect(() => {
-        console.log(session)
-        if (session?.user?.name != undefined) setUserName(session.user.name)
-    }, [session])
-
-    const LoginButton: JSX.Element = <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>
-    const SignoutButton: JSX.Element = <Button variant={'secondary'} onClick={() => signOut()}>Sign out</Button>
-
     return (
         <PublicLandingStyle>
             <div>
                 <h1>Public Landing</h1>
-                {
-                    userName && <p>Logged in as {session?.user?.name}</p>
-                }
             </div>
             <div className="btnGrp">
-                {userName== null ? LoginButton : SignoutButton}
-                <Button variant={'secondary'} onClick={() => console.log("register")}>Register</Button>
+                <Button variant={'primary'} onClick={() => signIn()}>Log in</Button>
             </div>
         </PublicLandingStyle>
     );

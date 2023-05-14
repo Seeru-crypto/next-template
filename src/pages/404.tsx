@@ -2,10 +2,11 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import styled from 'styled-components';
+import {SecondsToMilliseconds} from "../configs";
 
 const NotFound = () => {
     const router = useRouter();
-    const timer = 10 * 1000;
+    const timer = SecondsToMilliseconds(5);
 
     useEffect(() => {
         setTimeout(() => {
